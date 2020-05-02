@@ -1,19 +1,19 @@
-import telnetlib
+import sshlib
 import getpass
 
 host = sys.argv[1]
 
-username = raw_input('Username:')
+username = input('Username:')
 password = getpass.getpass()
-tn = telnetlib.Telnet(host)
+ss = sshlib.Ssh(host)
 
-tn.read_until("login: ")
-tn.write(username + "\n")
+ss.read_until("login: ")
+ss.write(username + "\n")
 if password:
-    tn.read_until("Password: ")
-    tn.write(password + "\n")
+    ss.read_until("Password: ")
+    ss.write(password + "\n")
 
-tn.write("ls\n")
-tn.write("exit\n")
+ss.write("ls\n")
+ss.write("exit\n")
 
-print(tn.read_all())
+print(ss.read_all())
